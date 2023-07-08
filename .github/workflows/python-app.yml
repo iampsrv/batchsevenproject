@@ -22,4 +22,26 @@ jobs:
         pip install -r requirements.txt
     - name: Test with pytest
       run: |
-        pytest test.py
+        pytest test.py --doctest-modules --junitxml=junit/test-results.xml
+        ls -ltr
+
+    - name: Upload pytest test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: pytest-results
+        path: junit/test-results.xml
+      # Use always() to always run this step to publish test results when there are test failures
+      if: ${{ always() }}
+    
+    - name: Run tests with coverage
+      run: |
+          coverage run -m pytest test.py
+          coverage xml -o coverage.xml
+          coverage report -m
+      working-directory: /home/runner/work/batchsevenproject/batchsevenproject
+
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v2
+      with:
+          name: coverage-report
+          path: coverage.xml
