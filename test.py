@@ -12,9 +12,9 @@ def client() -> FlaskClient:
             create_items_table()
         yield client
 
-
+# changes made over here
 def test_get_all_items(client):
-    response = client.get('/items')
+    response = client.get('/itemsssss')
     assert response.status_code == 200
     #assert response.json == []
 
