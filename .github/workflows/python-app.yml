@@ -24,6 +24,7 @@ jobs:
       run: |
         pytest test.py --doctest-modules --junitxml=junit/test-results.xml
         ls -ltr
+        echo $MY_ENV_VAR
 
     - name: Upload pytest test results
       uses: actions/upload-artifact@v3
