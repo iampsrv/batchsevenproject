@@ -14,7 +14,7 @@ def client() -> FlaskClient:
 
 # changes made over here
 def test_get_all_items(client):
-    response = client.get('/itemsssss')
+    response = client.get('/items')
     assert response.status_code == 200
     #assert response.json == []
 
