@@ -28,7 +28,6 @@ jobs:
         pytest test.py --doctest-modules --junitxml=junit/test-results.xml
         ls -ltr
         echo ${{ variables.MY_ENV_VAR }}
-        echo ${{ var.MY_ENV_VAR }}
         echo ${{ MY_ENV_VAR }}
         echo "$MY_ENV_VAR"
 
