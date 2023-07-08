@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  build-test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -45,3 +45,38 @@ jobs:
       with:
           name: coverage-report
           path: coverage.xml
+
+  build-and-push-docker-image-to-github-packages:
+    runs-on: ubuntu-latest 
+    permissions: 
+      contents: read
+      packages: write 
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Build container image
+      uses: docker/build-push-action@v1
+      with: 
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: docker.pkg.github.com
+        repository: ${{ github.repository }}/flaskapp
+        tag_with_sha: true
+        tag_with_ref: true
+  
+  build-and-push-docker-image-to-dockerhub:
+    runs-on: ubuntu-latest   
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+            
+      - name: Run Docker container
+        run: docker run hello-world
+        
+      - name: Push to docker Hub
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: psrv3/batchsevengithub-action
+          tag_with_ref: true
