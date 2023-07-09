@@ -3,7 +3,7 @@ pipeline {
 
 
     stages {
-        stage('Checkout') {
+        stage('Devbranch') {
             steps {
                 echo "This is dev branch"
             }
