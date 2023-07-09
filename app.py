@@ -57,7 +57,7 @@ def delete_item_from_db(key):
     
 @app.route('/')
 def hello():
-    return "Github initiated the trigger"
+    return "Github initiated the trigger, again i m testing this build trigger"
     
 @app.route('/items', methods=['GET'])
 def get_all_items():
